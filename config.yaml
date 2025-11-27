@@ -1,0 +1,26 @@
+data:
+  indoor_zip_path: "D:/honours final project/data/Indoor Fire Smoke.zip"
+  forest_zip_path: "D:/honours final project/data/FlameVision  A new dataset for wildfire classification and detection using aerial imagery.zip"
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/combined_dataset"
+  img_size: [250, 250]
+  batch_size: 32
+  split_ratio: [0.7, 0.15, 0.15]
+  augmentation:
+    rotation: 15
+    brightness: 0.2
+    horizontal_flip: true
+
+training:
+  model_name: "resnet50" # Options: resnet50, efficientnet_b3, mobilenet_v2
+  epochs: 50
+  learning_rate: 0.001
+  patience: 5
+  checkpoint_dir: "checkpoints"
+  best_model_path: "checkpoints/best_model.h5"
+
+inference:
+  confidence_threshold: 0.5
+  frame_window: 5
+  fps: 15
+  output_dir: "output_videos"

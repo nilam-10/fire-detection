@@ -1,0 +1,21 @@
+# Datasets
+data/
+yt_temp/
+output_videos/
+
+# Models & Checkpoints
+runs/
+checkpoints/
+*.pt
+*.pth
+*.h5
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
