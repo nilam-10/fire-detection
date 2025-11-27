@@ -20,8 +20,10 @@ This project implements a real-time fire detection system using **YOLOv8** (You 
     ```
 
 2.  **Download Datasets**:
-    *   **Indoor Fire Smoke Dataset**: Place `Indoor Fire Smoke.zip` in the `data/` folder.
-    *   **FlameVision Dataset**: Place `FlameVision  A new dataset for wildfire classification and detection using aerial imagery.zip` in the `data/` folder.
+    *   **Indoor Fire Smoke Dataset**: [Download from Zenodo](https://zenodo.org/records/15826133)
+        *   Download the zip and rename/place it as `data/Indoor Fire Smoke.zip`.
+    *   **FlameVision Dataset (Outdoor)**: [Download from Mendeley Data](https://data.mendeley.com/datasets/fgvscdjsmt/4)
+        *   Download the zip and rename/place it as `data/FlameVision  A new dataset for wildfire classification and detection using aerial imagery.zip`.
     *   *Note: These files are too large (>100MB) to be hosted on GitHub directly.*
 
 3.  **Prepare Data**:
