@@ -1,6 +1,6 @@
 data:
-  indoor_zip_path: "D:/honours final project/data/Indoor Fire Smoke.zip"
-  forest_zip_path: "D:/honours final project/data/FlameVision  A new dataset for wildfire classification and detection using aerial imagery.zip"
+  indoor_zip_path: "data/Indoor Fire Smoke.zip"
+  forest_zip_path: "data/FlameVision  A new dataset for wildfire classification and detection using aerial imagery.zip"
   raw_data_dir: "data/raw"
   processed_data_dir: "data/combined_dataset"
   img_size: [250, 250]

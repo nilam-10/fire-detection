@@ -4,8 +4,9 @@ This project implements a real-time fire detection system using **YOLOv8** (You 
 
 ## 📂 Project Structure
 
-- `data/`: Contains the raw and processed datasets (excluded from git).
-- `prepare_data.py`: Script to extract, convert, and merge datasets into YOLO format.
+- `data/`: Directory for datasets (excluded from git due to size).
+- `extract_data.py`: Script to extract the raw zip files.
+- `prepare_data.py`: Script to convert and merge datasets into YOLO format.
 - `train_yolo.py`: Script to train the YOLOv8 model.
 - `detect_yolo.py`: Real-time inference on local video/webcam.
 - `detect_yolo_youtube.py`: Inference on YouTube videos.
@@ -18,14 +19,20 @@ This project implements a real-time fire detection system using **YOLOv8** (You 
     pip install ultralytics torch torchvision opencv-python pyyaml yt-dlp
     ```
 
-2.  **Prepare Datasets**:
-    *   Place your dataset zip files in `data/`.
-    *   Update `config.yaml` with the correct paths to your zip files.
-    *   Run the data preparation script:
+2.  **Download Datasets**:
+    *   **Indoor Fire Smoke Dataset**: Place `Indoor Fire Smoke.zip` in the `data/` folder.
+    *   **FlameVision Dataset**: Place `FlameVision  A new dataset for wildfire classification and detection using aerial imagery.zip` in the `data/` folder.
+    *   *Note: These files are too large (>100MB) to be hosted on GitHub directly.*
+
+3.  **Prepare Data**:
+    *   Run the extraction script:
+        ```bash
+        python extract_data.py
+        ```
+    *   Run the preparation script to create the YOLO dataset:
         ```bash
         python prepare_data.py
         ```
-    *   This will create a `data/yolo_dataset` folder with unified images and labels.
 
 ## 🏋️ Training
 
@@ -57,8 +64,7 @@ python detect_yolo_youtube.py "https://youtube.com/shorts/..."
 The output video with bounding boxes will be saved in `output_videos/`.
 
 ## 📊 Results
-The model achieves approximately **55% mAP@50** on the challenging combined dataset, capable of detecting fire in various lighting conditions and environments.
+The model achieves approximately **55% mAP@50** on the challenging combined dataset.
 
-## 📝 Notes
-*   The `data/` folder is git-ignored because it contains large image datasets (>1GB).
-*   The `runs/` folder containing trained weights is also ignored. You must re-train the model locally to generate the weights.
+## ⚠️ Important Note on Data
+The `data/` folder and `runs/` folder are excluded from the repository via `.gitignore` because they contain large files that exceed GitHub's 100MB limit. You must download the datasets and train the model locally to generate the weights.
