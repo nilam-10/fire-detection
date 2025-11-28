@@ -1,7 +1,8 @@
 # Datasets
 data/
 yt_temp/
-output_videos/
+# output_videos/ (Commented out to allow pushing specific videos)
+
 
 # Models & Checkpoints
 runs/
