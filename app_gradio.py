@@ -66,6 +66,31 @@ def get_comparison_table():
     }
     return pd.DataFrame(data)
 
+import yt_dlp
+
+def detect_youtube(url, model_name, conf):
+    model = load_model(model_name)
+    if model is None:
+        return None
+    
+    # Download video
+    ydl_opts = {
+        'format': 'best[ext=mp4]',
+        'outtmpl': 'yt_temp/gradio_yt.%(ext)s',
+        'quiet': True,
+        'no_warnings': True,
+        'force_overwrite': True
+    }
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+        video_path = "yt_temp/gradio_yt.mp4"
+    except Exception as e:
+        return None # Handle error gracefully
+        
+    # Process video (reuse detect_video logic)
+    return detect_video(video_path, model_name, conf)
+
 # --- UI ---
 with gr.Blocks(title="Fire Detection System") as demo:
     gr.Markdown("# 🔥 Real-Time Fire Detection System")
@@ -94,6 +119,18 @@ with gr.Blocks(title="Fire Detection System") as demo:
                 vid_output = gr.Video(label="Result")
         
         btn_vid.click(detect_video, inputs=[vid_input, model_select_vid, conf_slider_vid], outputs=vid_output)
+
+    with gr.Tab("📺 YouTube Detection"):
+        with gr.Row():
+            with gr.Column():
+                yt_input = gr.Textbox(label="YouTube URL", placeholder="Paste link here...")
+                model_select_yt = gr.Dropdown(choices=list(models.keys()), value="YOLOv8 (Best)", label="Select Model")
+                conf_slider_yt = gr.Slider(minimum=0.0, maximum=1.0, value=0.25, label="Confidence Threshold")
+                btn_yt = gr.Button("Process YouTube Video")
+            with gr.Column():
+                yt_output = gr.Video(label="Result")
+        
+        btn_yt.click(detect_youtube, inputs=[yt_input, model_select_yt, conf_slider_yt], outputs=yt_output)
 
     with gr.Tab("📊 Model Comparison"):
         gr.DataFrame(value=get_comparison_table(), label="Performance Metrics")
