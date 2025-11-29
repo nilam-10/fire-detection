@@ -90,10 +90,10 @@ def detect_youtube(url, model_name, conf):
 # --- DASHBOARD PLOTS ---
 def get_comparison_data():
     data = {
-        "Model": ["YOLOv8 (50ep)", "YOLOv8 (30ep)", "YOLOv5", "YOLO11", "RT-DETR (5ep)"],
-        "mAP@50": [56.1, 54.9, 53.3, 54.1, 44.6],
-        "Precision": [58.0, 58.5, 59.9, 57.5, 50.4],
-        "Recall": [53.6, 51.8, 48.1, 50.5, 45.7]
+        "Model": ["YOLOv8 (50ep)", "YOLOv8 (30ep)", "YOLOv5", "YOLOv10", "YOLO11", "RT-DETR (5ep)"],
+        "mAP@50": [56.1, 54.9, 53.3, 48.9, 54.1, 44.6],
+        "Precision": [58.0, 58.5, 59.9, 55.1, 57.5, 50.4],
+        "Recall": [53.6, 51.8, 48.1, 45.8, 50.5, 45.7]
     }
     return pd.DataFrame(data)
 
