@@ -10,19 +10,19 @@ This document compares the performance of YOLOv8 and YOLO11 on the Fire Detectio
 
 ## 2. Results Comparison
 
-| Metric | YOLOv8 (30 Epochs) | YOLOv10 (30 Epochs) | YOLOv5 (30 Epochs) | YOLO11 (1 Epoch Test) |
+| Metric | YOLOv8 (50 Epochs) | YOLOv8 (30 Epochs) | YOLOv5 (30 Epochs) | YOLO11 (1 Epoch Test) |
 | :--- | :--- | :--- | :--- | :--- |
-| **mAP@50** | **54.9%** | 48.9% | 53.3% | 54.1% |
-| **Precision** | 58.5% | 55.1% | **59.9%** | 57.5% |
-| **Recall** | **51.8%** | 45.8% | 48.1% | 50.5% |
-| **mAP@50-95** | **31.1%** | 27.7% | 30.0% | 30.8% |
+| **mAP@50** | **56.1%** | 54.9% | 53.3% | 54.1% |
+| **Precision** | 58.0% | 58.5% | **59.9%** | 57.5% |
+| **Recall** | **53.6%** | 51.8% | 48.1% | 50.5% |
+| **mAP@50-95** | **32.0%** | 31.1% | 30.0% | 30.8% |
 
 ## 3. Observations
-*   **YOLOv8**: The best performing model overall (55% mAP). Best balance of Precision and Recall.
-*   **YOLOv5**: Very competitive (53% mAP) and achieved the highest Precision (59.9%), meaning fewer false alarms.
-*   **YOLOv10**: Performed worse than v8 (49% mAP) on this dataset.
-*   **YOLO11**: Very close to v8 in initial tests.
+*   **YOLOv8 (50 Epochs)**: The absolute best model. Training for longer improved mAP by 1.2% and Recall by 1.8%.
+*   **YOLOv8 (30 Epochs)**: Still excellent, but the extra 20 epochs paid off.
+*   **YOLOv5**: High precision but lower recall. Good if you hate false alarms, but misses some fires.
+*   **YOLO11**: Shows potential but requires more tuning to beat v8 on this dataset.
 
 ## 4. Conclusion
-**YOLOv8** is the recommended model for deployment due to its superior Recall and mAP. However, **YOLOv5** is a strong alternative if minimizing false positives is the priority.
+**YOLOv8 (50 Epochs)** is the final recommended model for deployment. It offers the highest detection rate (Recall) and overall accuracy (mAP).
 
