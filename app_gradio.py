@@ -3,6 +3,8 @@ from ultralytics import YOLO
 import cv2
 import os
 import pandas as pd
+import matplotlib
+matplotlib.use('Agg') # Fix for "main thread is not in main loop"
 import matplotlib.pyplot as plt
 import yt_dlp
 import numpy as np
@@ -28,13 +30,17 @@ def detect_image(image, model_name, conf):
     results = model(image, conf=conf)
     return results[0].plot()
 
+import uuid
+
 def detect_video(video_path, model_name, conf):
     model = load_model(model_name)
     if model is None:
         return video_path
     
     cap = cv2.VideoCapture(video_path)
-    output_path = "output_videos/gradio_output.mp4"
+    # Use unique filename to prevent browser caching
+    unique_id = str(uuid.uuid4())[:8]
+    output_path = f"output_videos/gradio_output_{unique_id}.mp4"
     os.makedirs("output_videos", exist_ok=True)
     
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -62,9 +68,13 @@ def detect_video(video_path, model_name, conf):
     return output_path
 
 def detect_youtube(url, model_name, conf):
+    unique_id = str(uuid.uuid4())[:8]
+    temp_path = f"yt_temp/gradio_yt_{unique_id}.%(ext)s"
+    final_path = f"yt_temp/gradio_yt_{unique_id}.mp4"
+    
     ydl_opts = {
         'format': 'best[ext=mp4]',
-        'outtmpl': 'yt_temp/gradio_yt.%(ext)s',
+        'outtmpl': temp_path,
         'quiet': True,
         'no_warnings': True,
         'force_overwrite': True
@@ -72,8 +82,7 @@ def detect_youtube(url, model_name, conf):
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
-        video_path = "yt_temp/gradio_yt.mp4"
-        return detect_video(video_path, model_name, conf)
+        return detect_video(final_path, model_name, conf)
     except Exception as e:
         print(f"Error downloading YouTube video: {e}")
         return None
@@ -81,7 +90,7 @@ def detect_youtube(url, model_name, conf):
 # --- DASHBOARD PLOTS ---
 def get_comparison_data():
     data = {
-        "Model": ["YOLOv8 (50ep)", "YOLOv8 (30ep)", "YOLOv5", "YOLO11", "RT-DETR"],
+        "Model": ["YOLOv8 (50ep)", "YOLOv8 (30ep)", "YOLOv5", "YOLO11", "RT-DETR (5ep)"],
         "mAP@50": [56.1, 54.9, 53.3, 54.1, 44.6],
         "Precision": [58.0, 58.5, 59.9, 57.5, 50.4],
         "Recall": [53.6, 51.8, 48.1, 50.5, 45.7]
